@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        💎 Abonnements Premium
+    </h1>
+    <p style="font-size: 1.3rem; color: #666;">
+        Choisissez la formule qui vous convient le mieux
+    </p>
+</div>
+
+<!-- ABONNEMENT MENSUEL -->
+<div class="pricing-card" style="margin-bottom: 2rem;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🚀</div>
+    <h2 style="color: white; margin-bottom: 1rem;">Abonnement Mensuel</h2>
+    <div class="score" style="color: white; font-size: 4rem;">
+        99 MAD<span style="font-size: 1.5rem;">/mois</span>
+    </div>
+    <p style="color: rgba(255,255,255,0.9); margin: 1rem 0;">
+        Flexibilité maximale - Annulation à tout moment
+    </p>
+
+    <form action="/create-checkout-session" method="post" style="margin: 2rem 0;">
+        <input type="hidden" name="subscription_type" value="monthly">
+        <button type="submit" class="btn" style="background: white; color: #667eea; font-size: 1.2rem; padding: 15px 40px;">
+            💳 Choisir Mensuel
+        </button>
+    </form>
+</div>
+
+<!-- ABONNEMENT ANNUEL -->
+<div class="pricing-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🏆</div>
+    <h2 style="color: white; margin-bottom: 1rem;">Abonnement Annuel</h2>
+    <div class="score" style="color: white; font-size: 4rem;">
+        799 MAD<span style="font-size: 1.5rem;">/an</span>
+    </div>
+    <p style="color: rgba(255,255,255,0.9); margin: 1rem 0;">
+        <strong>Économisez 30%</strong> soit seulement 66.5 MAD/mois
+    </p>
+
+    <form action="/create-checkout-session" method="post" style="margin: 2rem 0;">
+        <input type="hidden" name="subscription_type" value="yearly">
+        <button type="submit" class="btn" style="background: white; color: #28a745; font-size: 1.2rem; padding: 15px 40px;">
+            💰 Choisir Annuel
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h2 style="text-align: center; margin-bottom: 2rem;">⭐ Tout inclus dans votre abonnement</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div style="font-size: 3rem; color: #28a745;">∞</div>
+            <h3>Analyses Illimitées</h3>
+            <p>Analysez autant de CV que vous voulez</p>
+        </div>
+        <div class="feature-card">
+            <div style="font-size: 3rem; color: #667eea;">🤖</div>
+            <h3>AI Avancée</h3>
+            <p>Analyse OpenAI avec recommandations détaillées</p>
+        </div>
+        <div class="feature-card">
+            <div style="font-size: 3rem; color: #ffc107;">🎯</div>
+            <h3>Conseils Personnalisés</h3>
+            <p>Recommandations adaptées à votre profil</p>
+        </div>
+        <div class="feature-card">
+            <div style="font-size: 3rem; color: #e83e8c;">⚡</div>
+            <h3>Support Prioritaire</h3>
+            <p>Réponses rapides et assistance dédiée</p>
+        </div>
+    </div>
+</div>
+
+<!-- OFFRE ÉTUDIANTS -->
+{% if session.student %}
+<div class="card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; text-align: center;">
+    <h2 style="color: white;">🎓 Offre Spéciale Étudiant</h2>
+    <p style="font-size: 1.2rem;">
+        En tant qu'étudiant, vous bénéficiez d'<strong>1 an d'abonnement premium gratuit</strong> !
+    </p>
+    <p>Profitez de toutes les fonctionnalités avancées sans frais.</p>
+</div>
+{% endif %}
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/dashboard" class="btn" style="background: #6c757d;">← Retour au tableau de bord</a>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('pk_test_51SWdoHRbTGOIXLwnCTYoc2Aq3pkySs2rFBcXQNcqt8Ey5hsEjESFvfPElz1b5vF8GgWYUZTZ3ZT2AoXKPqAES0TF00M3ZAvVEz');
+</script>
+{% endblock %}

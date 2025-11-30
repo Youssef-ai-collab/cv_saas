@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if results.error %}
+<div class="card" style="text-align: center;">
+    <div style="font-size: 4rem; color: #dc3545;">❌</div>
+    <h2 style="color: #dc3545;">Erreur d'analyse</h2>
+    <p style="font-size: 1.2rem; margin: 1rem 0;">{{ results.error }}</p>
+    <a href="/upload" class="btn">🔄 Réessayer</a>
+</div>
+{% else %}
+<!-- En-tête avec gestion d'erreur -->
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h2 style="color: white; margin-bottom: 1rem;">🤖 Analyse Expert par IA</h2>
+
+    <div class="score {% if results.overall_score >= 80 %}score-excellent{% elif results.overall_score >= 60 %}score-good{% elif results.overall_score >= 40 %}score-medium{% else %}score-poor{% endif %}" style="color: white; font-size: 3.5rem;">
+        {{ results.overall_score }}/100
+    </div>
+    <p style="font-size: 1.2rem;">
+        {% if results.overall_score >= 80 %}
+        🏆 Excellent - CV très compétitif
+        {% elif results.overall_score >= 60 %}
+        👍 Bon potentiel - Quelques optimisations
+        {% elif results.overall_score >= 40 %}
+        📝 Améliorations nécessaires
+        {% else %}
+        🔄 Refonte recommandée
+        {% endif %}
+    </p>
+    <small>{{ results.analysis_date }} | {{ results.ai_model }}</small>
+</div>
+
+<!-- Résumé exécutif -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 1rem;">📋 Résumé du Profil</h3>
+    <div style="background: #e7f3ff; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #667eea;">
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0; font-weight: 500;">
+            {{ results.analysis_summary }}
+        </p>
+    </div>
+</div>
+
+<!-- Scores détaillés CORRIGÉ -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">📊 Analyse Détaillée par Critère</h3>
+    <div class="results-grid">
+        <div class="result-card">
+            <h4>🏗️ Structure</h4>
+            <div class="score {% if results.detailed_scores.structure_organization >= 80 %}score-excellent{% elif results.detailed_scores.structure_organization >= 60 %}score-good{% elif results.detailed_scores.structure_organization >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.structure_organization }}/100
+            </div>
+            <p>Organisation & Présentation</p>
+        </div>
+        <div class="result-card">
+            <h4>🎯 Contenu</h4>
+            <div class="score {% if results.detailed_scores.content_relevance >= 80 %}score-excellent{% elif results.detailed_scores.content_relevance >= 60 %}score-good{% elif results.detailed_scores.content_relevance >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.content_relevance }}/100
+            </div>
+            <p>Pertinence & Richesse</p>
+        </div>
+        <div class="result-card">
+            <h4>🔍 Mots-clés</h4>
+            <div class="score {% if results.detailed_scores.keywords_optimization >= 80 %}score-excellent{% elif results.detailed_scores.keywords_optimization >= 60 %}score-good{% elif results.detailed_scores.keywords_optimization >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.keywords_optimization }}/100
+            </div>
+            <p>Optimisation ATS</p>
+        </div>
+        <div class="result-card">
+            <h4>✨ Clarté</h4>
+            <div class="score {% if results.detailed_scores.clarity_readability >= 80 %}score-excellent{% elif results.detailed_scores.clarity_readability >= 60 %}score-good{% elif results.detailed_scores.clarity_readability >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.clarity_readability }}/100
+            </div>
+            <p>Lisibilité & Impact</p>
+        </div>
+        <!-- Scores optionnels avec vérification -->
+        {% if results.detailed_scores.achievements_impact is defined %}
+        <div class="result-card">
+            <h4>📈 Réalisations</h4>
+            <div class="score {% if results.detailed_scores.achievements_impact >= 80 %}score-excellent{% elif results.detailed_scores.achievements_impact >= 60 %}score-good{% elif results.detailed_scores.achievements_impact >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.achievements_impact }}/100
+            </div>
+            <p>Impact & Résultats</p>
+        </div>
+        {% endif %}
+        {% if results.detailed_scores.career_progression is defined %}
+        <div class="result-card">
+            <h4>🚀 Carrière</h4>
+            <div class="score {% if results.detailed_scores.career_progression >= 80 %}score-excellent{% elif results.detailed_scores.career_progression >= 60 %}score-good{% elif results.detailed_scores.career_progression >= 40 %}score-medium{% else %}score-poor{% endif %}">
+                {{ results.detailed_scores.career_progression }}/100
+            </div>
+            <p>Progression & Potentiel</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Points Forts - SIMPLIFIÉ -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">✅ Points Forts Identifiés</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+        {% for strength in results.strengths %}
+        <div style="padding: 1.5rem; background: #d4edda; border-radius: 10px; border-left: 4px solid #28a745;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.5rem;">💪</span>
+                <strong>Atout {{ loop.index }}</strong>
+            </div>
+            <p style="margin: 0; font-weight: 500;">{{ strength }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Améliorations Suggrées - SIMPLIFIÉ -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">📝 Améliorations Prioritaires</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+        {% for improvement in results.improvements %}
+        <div style="padding: 1.5rem; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.5rem;">🎯</span>
+                <strong>Priorité {{ loop.index }}</strong>
+            </div>
+            <p style="margin: 0; font-weight: 500;">{{ improvement }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Recommandations - SIMPLIFIÉ -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">💡 Recommandations Stratégiques</h3>
+    <div>
+        {% for recommendation in results.recommendations %}
+        <div style="background: #f8f9fa; border-left: 4px solid #667eea; padding: 1.5rem; margin: 1rem 0; border-radius: 8px;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.2rem;">🎓</span>
+                <strong>Conseil {{ loop.index }}</strong>
+            </div>
+            <p style="margin: 0; line-height: 1.6;">{{ recommendation }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Sections Détectées -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">📑 Structure du CV</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; text-align: center;">
+        {% for section, present in results.sections_found.items() %}
+        <div style="padding: 1.5rem; background: {% if present %}#28a745{% else %}#dc3545{% endif %}; color: white; border-radius: 10px;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">
+                {% if present %}✅{% else %}❌{% endif %}
+            </div>
+            <strong>{{ section|title }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Mots-clés trouvés -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 2rem;">🔑 Compétences Techniques Identifiées</h3>
+    <div style="text-align: center;">
+        {% for keyword in results.keywords_found %}
+        <span class="keyword" style="background: #667eea; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; margin: 5px; font-weight: 500; font-size: 0.9rem;">
+            {{ keyword }}
+        </span>
+        {% endfor %}
+        {% if not results.keywords_found %}
+        <p style="color: #666; font-style: italic;">Aucune compétence technique spécifique détectée</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Aperçu du texte -->
+<div class="card">
+    <h3 style="text-align: center; margin-bottom: 1rem;">👁️ Aperçu du Texte Analysé</h3>
+    <textarea readonly style="width: 100%; height: 120px; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; resize: none; background: #f8f9fa; font-size: 0.9rem;">
+{{ results.text_preview }}
+    </textarea>
+</div>
+
+<!-- Call to action -->
+{% if session.premium %}
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white;">
+    <h2 style="color: white;">🎉 Vous êtes Premium !</h2>
+    <p style="font-size: 1.2rem; margin: 1rem 0;">
+        Profitez d'analyses illimitées avec notre IA experte
+    </p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+        <a href="/upload" class="btn" style="background: white; color: #28a745; font-size: 1.1rem;">
+            🔄 Analyser un autre CV
+        </a>
+        <a href="/dashboard" class="btn" style="background: rgba(255,255,255,0.2); color: white; font-size: 1.1rem;">
+            🏠 Tableau de bord
+        </a>
+    </div>
+</div>
+{% else %}
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h2 style="color: white;">🚀 Passez au Premium</h2>
+    <p style="font-size: 1.2rem; margin: 1rem 0;">
+        {% if session.free_used %}
+        Vous avez utilisé votre analyse gratuite.
+        {% else %}
+        Il vous reste {{ 1 - session.free_used|int }} analyse gratuite.
+        {% endif %}
+        Débloquez des analyses expertes illimitées !
+    </p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+        <a href="/subscription" class="btn" style="background: white; color: #667eea; font-size: 1.1rem;">
+            💎 Voir les offres
+        </a>
+        {% if not session.free_used %}
+        <a href="/upload" class="btn" style="background: rgba(255,255,255,0.2); color: white; font-size: 1.1rem;">
+            🔄 Analyser un autre CV
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}

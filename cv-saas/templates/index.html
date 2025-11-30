@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        🚀 AI CV Reviewer
+    </h1>
+    <p style="font-size: 1.3rem; color: #666; margin-bottom: 2rem;">
+        Analysez votre CV avec notre intelligence artificielle OpenAI et maximisez vos chances d'embauche
+    </p>
+
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+        <a href="/login" class="btn" style="font-size: 1.2rem; padding: 15px 30px;">
+            🔐 Se connecter
+        </a>
+        <a href="/signup" class="btn" style="font-size: 1.2rem; padding: 15px 30px; background: #28a745;">
+            🚀 Créer un compte
+        </a>
+    </div>
+</div>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Analyse OpenAI</h3>
+        <p>Analyse avancée avec intelligence artificielle</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Étudiants Gratuits</h3>
+        <p>1 an gratuit pour les étudiants @etu.uae.ac.ma</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Abonnements Flexibles</h3>
+        <p>Mensuel (99 MAD) ou Annuel (799 MAD)</p>
+    </div>
+</div>
+
+<!-- OFFRE ÉTUDIANTS -->
+<div class="card" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; text-align: center;">
+    <h2 style="color: white;">🎓 Offre Spéciale Étudiants UAE</h2>
+    <p style="font-size: 1.2rem;">
+        Les étudiants <strong>@etu.uae.ac.ma</strong> bénéficient d'<strong>1 an d'abonnement premium gratuit</strong> !
+    </p>
+    <a href="/signup" class="btn" style="background: white; color: #ff6b6b; font-size: 1.1rem; margin-top: 1rem;">
+        Profiter de l'offre étudiante
+    </a>
+</div>
+
+<div class="card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h2 style="color: white;">💡 Prêt à optimiser votre CV ?</h2>
+    <p style="font-size: 1.2rem; margin: 1rem 0;">
+        Rejoignez notre plateforme et obtenez votre analyse gratuite avec OpenAI
+    </p>
+    <a href="/signup" class="btn" style="background: white; color: #667eea; font-size: 1.2rem;">
+        Commencer maintenant
+    </a>
+</div>
+{% endblock %}

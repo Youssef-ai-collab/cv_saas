@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 2rem auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">🚀 Créer un compte</h2>
+
+    <!-- Offre étudiants -->
+    <div class="success-message" style="margin-bottom: 1rem;">
+        <strong>🎓 Offre Spéciale :</strong> Les étudiants <strong>@etu.uae.ac.ma</strong> obtiennent 1 an gratuit !
+    </div>
+
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="/signup" method="post">
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nom complet</label>
+            <input type="text" name="fullname" required
+                   style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email</label>
+            <input type="email" name="email" required
+                   style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;"
+                   placeholder="exemple@etu.uae.ac.ma">
+            <small style="color: #666;">Utilisez votre email étudiant pour 1 an gratuit</small>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Mot de passe</label>
+            <input type="password" name="password" required
+                   style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem;">
+            Créer mon compte
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <p>Déjà un compte ? <a href="/login" style="color: #667eea;">Se connecter</a></p>
+    </div>
+</div>
+{% endblock %}

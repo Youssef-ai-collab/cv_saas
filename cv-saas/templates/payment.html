@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <div style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;">💳</div>
+    <h1 style="color: #667eea; margin-bottom: 1rem;">Paiement Sécurisé</h1>
+    <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+        Redirection vers notre partenaire de paiement sécurisé...
+    </p>
+
+    <div style="background: #e7f3ff; padding: 2rem; border-radius: 10px; margin: 2rem 0; max-width: 500px; margin-left: auto; margin-right: auto;">
+        <h3 style="color: #667eea; margin-top: 0;">🛡️ Paiement 100% Sécurisé</h3>
+        <p>Vos informations de paiement sont cryptées et protégées.</p>
+    </div>
+
+    <div style="margin: 2rem 0;">
+        <div class="btn" style="background: #6c757d; font-size: 1.1rem;">
+            ⏳ Redirection en cours...
+        </div>
+    </div>
+
+    <div style="color: #666; margin-top: 2rem;">
+        <p>Si la redirection ne fonctionne pas, <a href="/create-checkout-session" style="color: #667eea;">cliquez ici</a></p>
+    </div>
+</div>
+
+<script>
+    // Redirection automatique après 3 secondes
+    setTimeout(function() {
+        window.location.href = "/create-checkout-session";
+    }, 3000);
+</script>
+{% endblock %}

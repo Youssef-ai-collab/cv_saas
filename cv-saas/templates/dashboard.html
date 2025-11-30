@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1 style="margin-bottom: 1rem;">👋 Bienvenue, {{ session.user.fullname }} !</h1>
+    <p style="color: #666; font-size: 1.1rem;">Voici votre tableau de bord personnel</p>
+
+    <!-- Statut spécial étudiant -->
+    {% if session.student %}
+    <div class="success-message" style="margin-top: 1rem;">
+        <strong>🎓 Étudiant UAE détecté !</strong> Vous bénéficiez d'1 an d'abonnement premium gratuit.
+    </div>
+    {% endif %}
+</div>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analyse Gratuite</h3>
+        <p>Analysez votre CV avec notre AI OpenAI</p>
+        <a href="/upload" class="btn" style="margin-top: 1rem;">Commencer</a>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Abonnement Premium</h3>
+        <p>Analyses illimitées et fonctionnalités avancées</p>
+        <a href="/subscription" class="btn" style="margin-top: 1rem;">Voir les offres</a>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Votre Statut</h3>
+        <p>Essai gratuit: {% if not session.free_used %}✅ Disponible{% else %}❌ Utilisé{% endif %}</p>
+        <p>Abonnement: {% if session.premium %}✅ Premium Actif{% else %}❌ Inactif{% endif %}</p>
+        {% if session.student %}
+        <p>Statut: 🎓 Étudiant UAE</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card" style="text-align: center; background: #e7f3ff;">
+    <h3>🚀 Recommandé pour vous</h3>
+    <p>Commencez par analyser votre CV gratuitement avec notre AI OpenAI !</p>
+    <div style="margin-top: 1rem;">
+        <a href="/upload" class="btn">🤖 Analyser mon CV</a>
+    </div>
+</div>
+{% endblock %}

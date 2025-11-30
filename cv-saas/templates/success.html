@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <div style="font-size: 6rem; color: #28a745; margin-bottom: 2rem;">🎉</div>
+    <h1 style="color: #28a745; margin-bottom: 1rem;">Félicitations !</h1>
+
+    {% if subscription_type == 'yearly' %}
+    <h2 style="margin-bottom: 2rem;">Votre abonnement annuel est activé</h2>
+    <div class="success-message" style="max-width: 500px; margin: 2rem auto;">
+        <p style="font-size: 1.2rem; margin: 0;">
+            <strong>Abonnement Annuel - 799 MAD</strong><br>
+            Vous êtes premium pour 1 an !
+        </p>
+    </div>
+    {% else %}
+    <h2 style="margin-bottom: 2rem;">Votre abonnement mensuel est activé</h2>
+    <div class="success-message" style="max-width: 500px; margin: 2rem auto;">
+        <p style="font-size: 1.2rem; margin: 0;">
+            <strong>Abonnement Mensuel - 99 MAD</strong><br>
+            Vous êtes premium pour 1 mois !
+        </p>
+    </div>
+    {% endif %}
+
+    <div style="background: #e7f3ff; padding: 2rem; border-radius: 10px; margin: 2rem 0; max-width: 500px; margin-left: auto; margin-right: auto;">
+        <h3 style="color: #667eea; margin-top: 0;">🎁 Ce qui vous attend :</h3>
+        <ul style="text-align: left; list-style: none; padding: 0;">
+            <li style="margin: 0.5rem 0;">✅ <strong>Analyses illimitées</strong> avec OpenAI</li>
+            <li style="margin: 0.5rem 0;">✅ <strong>Rapports détaillés</strong> avec scores avancés</li>
+            <li style="margin: 0.5rem 0;">✅ <strong>Conseils personnalisés</strong> pour chaque section</li>
+            <li style="margin: 0.5rem 0;">✅ <strong>Support prioritaire</strong> 7j/7</li>
+        </ul>
+    </div>
+
+    <div style="margin: 3rem 0;">
+        <a href="/upload" class="btn btn-success" style="font-size: 1.3rem; padding: 15px 40px;">
+            🤖 Commencer à analyser
+        </a>
+    </div>
+
+    <div style="color: #666; margin-top: 2rem;">
+        <p>Un email de confirmation a été envoyé à votre adresse.</p>
+        <p>Besoin d'aide ? <a href="mailto:support@aicvreviewer.com" style="color: #667eea;">Notre équipe vous assiste</a></p>
+    </div>
+</div>
+
+<div class="card" style="text-align: center; background: #f8f9fa;">
+    <h3>📞 Prochaines étapes recommandées</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div>
+            <div style="font-size: 2rem;">1</div>
+            <strong>Analysez votre CV actuel</strong>
+            <p>Obtenez votre score avec OpenAI</p>
+        </div>
+        <div>
+            <div style="font-size: 2rem;">2</div>
+            <strong>Appliquez les recommandations</strong>
+            <p>Améliorez section par section</p>
+        </div>
+        <div>
+            <div style="font-size: 2rem;">3</div>
+            <strong>Testez différentes versions</strong>
+            <p>Adaptez pour chaque offre d'emploi</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

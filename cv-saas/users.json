@@ -1,0 +1,22 @@
+{
+  "ajaoui.youssef@etu.uae.ac.ma": {
+    "fullname": "Youssef",
+    "email": "ajaoui.youssef@etu.uae.ac.ma",
+    "password": "123456789",
+    "free_used": false,
+    "premium": true,
+    "student": true,
+    "premium_until": "2026-11-23T21:32:43.354152",
+    "created_at": "2025-11-23T21:32:43.354152"
+  },
+  "youssef.ajaoui@gmail.com": {
+    "fullname": "youssef",
+    "email": "youssef.ajaoui@gmail.com",
+    "password": "123456789",
+    "free_used": true,
+    "premium": false,
+    "student": false,
+    "premium_until": null,
+    "created_at": "2025-11-23T22:06:40.650448"
+  }
+}

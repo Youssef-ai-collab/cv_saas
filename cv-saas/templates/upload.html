@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1 style="text-align: center; margin-bottom: 1rem;">📤 Analyser votre CV</h1>
+
+    <!-- Statut de l'utilisateur -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+        {% if session.premium %}
+        <div class="success-message" style="display: inline-block;">
+            💎 Compte Premium - Analyses illimitées
+        </div>
+        {% elif not session.free_used %}
+        <div class="success-message" style="display: inline-block;">
+            🎁 Analyse gratuite disponible
+        </div>
+        {% else %}
+        <div class="error-message" style="display: inline-block;">
+            ❌ Essai gratuit utilisé - <a href="/subscription" style="color: #dc3545; font-weight: bold;">Voir les offres d'abonnement</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+        Téléchargez votre CV pour obtenir une analyse détaillée {% if session.premium %}illimitée{% else %}gratuite{% endif %}
+    </p>
+
+    {% if error %}
+    <div class="error-message">
+        <strong>❌ Erreur :</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Afficher le formulaire seulement si l'utilisateur peut analyser -->
+    {% if session.premium or not session.free_used %}
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="upload-zone">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📄</div>
+            <h3 style="margin-bottom: 1rem;">Déposez votre CV ici</h3>
+            <p style="margin-bottom: 2rem; color: #666;">
+                ou cliquez pour parcourir vos fichiers
+            </p>
+            <input type="file" name="cv" accept=".pdf,.docx,.txt" required
+                   style="font-size: 1.1rem; padding: 10px; border: 2px solid #667eea; border-radius: 8px; width: 100%; max-width: 400px;">
+        </div>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <button type="submit" class="btn" style="font-size: 1.2rem; padding: 15px 40px;">
+                🔍 Lancer l'analyse
+            </button>
+        </div>
+    </form>
+    {% else %}
+    <!-- Message si l'utilisateur ne peut plus analyser -->
+    <div class="card" style="text-align: center; background: #fff3cd;">
+        <h3>💎 Passez à la version Premium</h3>
+        <p>Vous avez utilisé votre analyse gratuite. Débloquez des analyses illimitées !</p>
+        <a href="/subscription" class="btn" style="margin-top: 1rem;">
+            Voir les offres d'abonnement
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="success-message">
+        <h4 style="color: #667eea; margin-top: 0;">📋 Formats supportés :</h4>
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 1rem 0;">
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">📄</div>
+                <strong>PDF</strong>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">📝</div>
+                <strong>DOCX</strong>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem;">📃</div>
+                <strong>TXT</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>💡 Conseils pour une analyse optimale</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <strong>✅ CV à jour</strong>
+            <p>Utilisez votre CV le plus récent avec toutes vos expériences</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <strong>✅ Compétences complètes</strong>
+            <p>Incluez toutes vos compétences techniques et linguistiques</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <strong>✅ Fichier accessible</strong>
+            <p>Assurez-vous que le fichier n'est pas protégé par mot de passe</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <strong>✅ Texte sélectionnable</strong>
+            <p>Évitez les images scannées, privilégiez le texte numérique</p>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/dashboard" class="btn" style="background: #6c757d;">← Retour au tableau de bord</a>
+</div>
+{% endblock %}
